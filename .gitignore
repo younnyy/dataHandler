@@ -1,0 +1,13 @@
+# System files
+.DS_Store
+.idea/
+__pycache__/
+*.pyc
+
+# Data & Output
+data/
+output/
+
+# Logs & Temp
+*.log
+debug_count.py

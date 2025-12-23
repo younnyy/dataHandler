@@ -1,0 +1,9 @@
+pandas
+jieba
+nltk
+scikit-learn
+numpy
+wordcloud
+matplotlib
+seaborn
+gensim
