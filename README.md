@@ -11,8 +11,8 @@
         *   **短语识别 (Bigrams)**: 自动识别并合并常见短语 (如 `South Korea`, `Prime Minister`, `Social Media`)。
         *   **自定义停用词**: 过滤 `said`, `report`, `time` 等常见新闻干扰词。
     *   **中文 (Chinese)**: 
-        *   **精确分词**: 使用 `Jieba` 进行分词，支持加载 `dict/custom_dict.txt` 自定义词典 (如 `高市早苗`, `黑鹰`)。
-        *   **停用词过滤**: 支持多层级停用词表 (`stopwords/` 目录)，精准过滤 `微博`, `视频`, `日方` 等业务噪音。
+        *   **精确分词**: 使用 `Jieba` 进行分词，支持加载 `dict/custom_dict.txt` 自定义词典 (如 `高市早苗`)。
+        *   **停用词过滤**: 支持多层级停用词表 (`stopwords/` 目录)，精准过滤 `微博`, `视频` 等业务噪音。
 
 2.  **高级特征选择 (Advanced Feature Selection)**
     *   **词袋模型 (Bag-of-Words)**: 生成稀疏向量格式。
