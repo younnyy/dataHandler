@@ -32,8 +32,8 @@
 
 ```plaintext
 dataHandler/
-├── data/                   # 输入数据源 (BBC, People, Weibo 等)
-├── output/                 # [自动生成] 所有处理结果、字典及图表
+├── data/                   # 输入数据源 (已包含在仓库中: BBC, People, Weibo 等)
+├── output/                 # [自动生成] 所有处理结果、字典及图表 (已包含预生成结果)
 ├── src/
 │   ├── preprocessor.py     # 数据加载、分词、词形还原、Bigram、清洗
 │   ├── text_mining.py      # BoW, Dictionary, CHI-TFIDF 计算

@@ -50,24 +50,48 @@ class DataPreprocessor:
             nltk.data.find('corpora/stopwords')
             nltk.data.find('corpora/wordnet')
             nltk.data.find('corpora/omw-1.4')
+            nltk.data.find('taggers/averaged_perceptron_tagger_eng')
         except LookupError:
             nltk.download('punkt')
             nltk.download('punkt_tab')
             nltk.download('stopwords')
             nltk.download('wordnet')
             nltk.download('omw-1.4')
+            nltk.download('averaged_perceptron_tagger')
+            nltk.download('averaged_perceptron_tagger_eng')
             
         tokens = word_tokenize(text)
+        
+        # Helper to map NLTK POS tags to WordNet POS tags
+        from nltk.corpus import wordnet
+        def get_wordnet_pos(treebank_tag):
+            if treebank_tag.startswith('J'):
+                return wordnet.ADJ
+            elif treebank_tag.startswith('V'):
+                return wordnet.VERB
+            elif treebank_tag.startswith('N'):
+                return wordnet.NOUN
+            elif treebank_tag.startswith('R'):
+                return wordnet.ADV
+            else:
+                return wordnet.NOUN # Default
+        
+        # Tag tokens
+        tagged = nltk.pos_tag(tokens)
+        
         eng_stopwords = set(nltk_stopwords.words('english')).union(self.en_custom_stopwords)
         
         filtered = []
-        for w in tokens:
+        for w, tag in tagged:
             if len(w) < 2: continue # remove single chars
             if w in eng_stopwords: continue
             
-            # Lemmatize (better than Stemming)
-            lemma = self.lemmatizer.lemmatize(w)
-            if lemma in eng_stopwords: continue # Check again after lemmatization ('years' -> 'year')
+            # Lemmatize with POS
+            wnet_pos = get_wordnet_pos(tag)
+            lemma = self.lemmatizer.lemmatize(w, pos=wnet_pos)
+            
+            if lemma in eng_stopwords: continue # Check again after lemmatization ('said' -> 'say')
+            if lemma == 'wa': continue # singular 'was' often lemmatized to 'wa' by mistake without context? No, 'was' -> 'be'. 'wa' is odd. 
             
             filtered.append(lemma)
         
